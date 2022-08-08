@@ -21,7 +21,7 @@ const SingUpInfo = ({ formData, setFormData }) => {
         />
         <input
          type="text"
-         placeholder="Password..."
+         placeholder="confirmPassword..."
          value={formData.confirmPassword}
          onChange={(event) =>
              setFormData({ ...formData, confirmPassword: event.target.value })}

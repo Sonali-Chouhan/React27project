@@ -3,7 +3,7 @@ import SignUpInfo from "./SingUpInfo";
 import PersonalInfo from "./PersonalInfo";
 import OtherInfo from "./OtherInfo";
 import DesignationInfo from "./DesignationInfo";
-import { toast, ToastContainer ,  } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 function Form() {
   const [page, setPage] = useState(0);
@@ -16,29 +16,46 @@ function Form() {
     username: "",
     nationality: "",
     other: "",
-    companyName:'',
-    designations:''
+    companyName: "",
+    designations: "",
   });
-       
 
-  const onSubmit = ()=>{
-     const {email , password , confirmPassword  , firstName , lastName , username , nationality , other , companyName ,  designations }  = formData;
-     if(email === ""){
-       toast.error("Aby sle EmailTo daaal!",{
-         position : "top-right"
-       })
-    }else if(!email.includes("@")){
-      toast.error("Plz Enter a Valid Email Address!",{
+  const onSubmit = (e) => {
+    e.preventDefault()
+    const {
+      email,
+      password,
+      confirmPassword,
+      firstName,
+      lastName,
+      username,
+      nationality,
+      other,
+      companyName,
+      designations,
+    } = formData;
+    if (email === "") {
+      toast.error("Email is required", {
+        position: "top-right",
+      });
+    } else if (!email.includes("@")) {
+      toast.error("Plz Enter a Valid Email Address!", {
+        position: "top-right",
+      });
+    } else if(password.length < 6){
+      toast.error("Password must be greater then 6", {
+        position: "top-left",
+      });
+    }else if(confirmPassword.length < 6){
+      toast.error("Confirm Password is must be a greater then 6",{
         position : "top-right"
       })
-    }else if(password >= 6 ){
-       toast.error("Password must be greater then 6",{
-         position : "top-left"
-       })
+    }else if(password !== confirmPassword){
+      toast.error("Password And ConfirmPassword Dose Not match ",{
+        position:"bottom-left"
+      })
     }
-    // else if()
-    
-    else{
+    else {
       if (page === FormTitles.length - 1) {
         alert("FORM SUBMITTED");
         console.log(formData);
@@ -46,24 +63,18 @@ function Form() {
         setPage((currPage) => currPage + 1);
       }
     }
-  }
-   
+  };
 
-
-
-  const FormTitles =  ["Sign Up", "Personal Info", "Designation Info","others"];
+  const FormTitles = ["Sign Up", "Personal Info", "Designation Info", "others"];
 
   const PageDisplay = () => {
-    
     if (page === 0) {
       return <SignUpInfo formData={formData} setFormData={setFormData} />;
     } else if (page === 1) {
       return <PersonalInfo formData={formData} setFormData={setFormData} />;
-    } 
-    else if (page === 2) {
-        return <DesignationInfo formData={formData} setFormData={setFormData} />;
-      }
-    else {
+    } else if (page === 2) {
+      return <DesignationInfo formData={formData} setFormData={setFormData} />;
+    } else {
       return <OtherInfo formData={formData} setFormData={setFormData} />;
     }
   };
@@ -72,7 +83,16 @@ function Form() {
     <div className="form">
       <div className="progressbar">
         <div
-          style={{ width: page === 0 ? "25%" : page === 1 ? "50%" : page===2 ? "75%": "100%" }}
+          style={{
+            width:
+              page === 0
+                ? "25%"
+                : page === 1
+                ? "50%"
+                : page === 2
+                ? "75%"
+                : "100%",
+          }}
         ></div>
       </div>
       <div className="form-container">
@@ -89,14 +109,12 @@ function Form() {
           >
             Prev
           </button>
-          <button
-            onClick={onSubmit}
-          >
+          <button onClick={(e)=>onSubmit(e)}>
             {page === FormTitles.length - 1 ? "Submit" : "Next"}
           </button>
         </div>
       </div>
-        <ToastContainer />
+      <ToastContainer />
     </div>
   );
 }

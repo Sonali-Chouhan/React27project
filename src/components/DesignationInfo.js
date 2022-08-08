@@ -5,7 +5,7 @@ const DesignationInfo = ({ formData, setFormData }) => {
     <div  className="designations-info-container">
       <input
         type="text"
-        placeholder="Company NAme..."
+        placeholder="Company Name..."
         value={formData.companyName}
         onChange={(e) => {
           setFormData({ ...formData, companyName: e.target.value });
