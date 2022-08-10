@@ -21,7 +21,7 @@ function Form() {
   });
 
   const onSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const {
       email,
       password,
@@ -42,20 +42,32 @@ function Form() {
       toast.error("Plz Enter a Valid Email Address!", {
         position: "top-right",
       });
-    } else if(password.length < 6){
+    } else if (password.length < 6) {
       toast.error("Password must be greater then 6", {
         position: "top-left",
       });
-    }else if(confirmPassword.length < 6){
-      toast.error("Confirm Password is must be a greater then 6",{
-        position : "top-right"
-      })
-    }else if(password !== confirmPassword){
-      toast.error("Password And ConfirmPassword Dose Not match ",{
-        position:"bottom-left"
-      })
-    }
-    else {
+    } else if (confirmPassword.length < 6) {
+      toast.error("Confirm Password is must be a greater then 6", {
+        position: "top-right",
+      });
+    } else if (password !== confirmPassword) {
+      toast.error("Password And ConfirmPassword Dose Not match ", {
+        position: "bottom-left",
+      });
+    } else {
+   
+        setPage((currPage) => currPage + 1);
+   }
+
+    if (firstName === "") {
+      toast.error("Plz Fill The Name!", {
+        position: "bottom-right",
+      });
+    } else if (lastName === "") {
+      toast.error("LastName Required :-)", {
+        position: "bottom-left",
+      });
+    } else {
       if (page === FormTitles.length - 1) {
         alert("FORM SUBMITTED");
         console.log(formData);
@@ -64,7 +76,6 @@ function Form() {
       }
     }
   };
-
   const FormTitles = ["Sign Up", "Personal Info", "Designation Info", "others"];
 
   const PageDisplay = () => {
@@ -109,7 +120,7 @@ function Form() {
           >
             Prev
           </button>
-          <button onClick={(e)=>onSubmit(e)}>
+          <button onClick={(e) => onSubmit(e)}>
             {page === FormTitles.length - 1 ? "Submit" : "Next"}
           </button>
         </div>
