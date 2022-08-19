@@ -7,7 +7,7 @@ const Contact = () => {
 
   useEffect(() => {
     title.setTitle("Contect Component....");
-  }, [])
+  },)
 
   return (
     <div>
